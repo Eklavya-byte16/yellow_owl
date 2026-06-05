@@ -18,7 +18,7 @@ function login() {
     setLoadding(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_BACKEND}/auth/login`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_BACKEND}auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

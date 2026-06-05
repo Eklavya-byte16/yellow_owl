@@ -13,33 +13,33 @@ function signup() {
     setForm({ ...form, [e.target.name]: e.target.value })
   };
 
-  const hangleSignup = async (e) => {
-    e.preventDefault();
-    setLoadding(true);
+ const hangleSignup = async (e) => {
+  e.preventDefault();
+  setLoadding(true);
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_BACKEND}/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      });
-      
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem("token", data.token)
-        localStorage.setItem("user", JSON.stringify(data.user))
-        navigate("/Terminal");
-      } else {
-        alert(data.message || "signup fail");
-      }
-    } catch (error) {
-      alert("Signup - somthing went wrong")
-    } finally {
-      setLoadding(false)
+  try {
+    const res = await fetch(`${import.meta.env.VITE_SERVER_BACKEND}auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",   // ← you need this for HttpOnly cookies
+      body: JSON.stringify(form)
+    });
+
+    const data = await res.json();  // parse FIRST, log after
+    console.log(data);
+
+    if (res.ok) {
+      navigate("/Terminal");
+    } else {
+      alert(data.error?.message  || data.message || "Signup failed");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Signup - something went wrong");
+  } finally {
+    setLoadding(false);
+  }
+};
 
   return (
     <div className="w-full min-h-screen bg-black relative flex items-center justify-center p-4 selection:bg-orange-500 selection:text-black overflow-hidden font-sans">
