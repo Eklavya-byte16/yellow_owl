@@ -29,6 +29,8 @@ function signup() {
     console.log(data);
 
     if (res.ok) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/Terminal");
     } else {
       alert(data.error?.message  || data.message || "Signup failed");
@@ -42,28 +44,28 @@ function signup() {
 };
 
   return (
-    <div className="w-full min-h-screen bg-black relative flex items-center justify-center p-4 selection:bg-orange-500 selection:text-black overflow-hidden font-sans">
+    <div className="w-full min-h-screen bg-black relative flex items-center justify-center p-4 selection:bg-white selection:text-black overflow-hidden font-sans">
       
-      {/* COMPLEMENTARY BLUE & ORANGE BACKGROUND CANVAS */}
+      {/* COMPLEMENTARY MONOCHROME BACKGROUND CANVAS */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <MaskContainer
           size={spotlightSize}          
           revealSize={spotlightSize}    
           className="w-full h-full"
           revealText={
-            /* INSIDE THE CIRCLE: Intense Neon Orange Spotlight */
+            /* INSIDE THE CIRCLE: Soft White Spotlight */
             <div className="w-screen h-screen bg-black flex items-center justify-center">
               <div className="relative w-[550px] h-[550px] flex items-center justify-center">
-                <div className="absolute w-[550px] h-[550px] bg-orange-500/45 rounded-full blur-[90px]" />
-                <div className="absolute w-[200px] h-[200px] bg-amber-400/40 rounded-full blur-[40px]" />
+                <div className="absolute w-[550px] h-[550px] bg-white/10 rounded-full blur-[90px]" />
+                <div className="absolute w-[200px] h-[200px] bg-neutral-400/20 rounded-full blur-[40px]" />
               </div>
             </div>
           }
         >
-          {/* OUTSIDE THE CIRCLE: Deep, Ambient Sapphire Blue Glow + Tech Grid */}
+          {/* OUTSIDE THE CIRCLE: Deep, Ambient Glow + Tech Grid */}
           <div className="w-screen h-screen bg-black flex items-center justify-center relative">
-            <div className="absolute w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e40af08_1px,transparent_1px),linear-gradient(to_bottom,#1e40af08_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+            <div className="absolute w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:3rem_3rem]" />
           </div>
         </MaskContainer>
       </div>
@@ -72,7 +74,7 @@ function signup() {
       <div 
         onMouseEnter={() => setSpotlightSize(500)} 
         onMouseLeave={() => setSpotlightSize(60)}   
-        className="w-full max-w-md bg-zinc-950/40 backdrop-blur-2xl border border-white/[0.06] rounded-3xl p-8 relative z-10 pointer-events-auto transition-all duration-300 hover:border-orange-500/40 hover:shadow-[0_0_60px_-10px_rgba(249,115,22,0.2)]"
+        className="w-full max-w-md bg-zinc-950/40 backdrop-blur-2xl border border-white/[0.06] rounded-3xl p-8 relative z-10 pointer-events-auto transition-all duration-300 hover:border-white/20 hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="flex flex-col items-center mb-8">
           <div className="p-2 bg-black rounded-2xl border border-white/[0.08] shadow-inner mb-4 transition-transform duration-300 hover:scale-105">
@@ -96,7 +98,7 @@ function signup() {
               onChange={Handlechange}
               required
               placeholder="owl_developer"
-              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/30 transition-all duration-200 text-sm shadow-inner"
+              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/30 transition-all duration-200 text-sm shadow-inner"
             />
           </div>
 
@@ -109,7 +111,7 @@ function signup() {
               onChange={Handlechange}
               required
               placeholder="name@example.com"
-              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/30 transition-all duration-200 text-sm shadow-inner"
+              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/30 transition-all duration-200 text-sm shadow-inner"
             />
           </div>
 
@@ -122,18 +124,18 @@ function signup() {
               onChange={Handlechange}
               required
               placeholder="••••••••"
-              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/30 transition-all duration-200 text-sm shadow-inner"
+              className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/30 transition-all duration-200 text-sm shadow-inner"
             />
           </div>
 
           <button 
             type="submit" 
             disabled={loding}
-            className="w-full bg-orange-600 hover:bg-orange-500 active:scale-[0.98] disabled:bg-orange-950/50 disabled:text-neutral-500 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 mt-2 text-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-600/10 border border-orange-500/20"
+            className="w-full bg-white hover:bg-neutral-200 active:scale-[0.98] disabled:bg-neutral-900 disabled:text-neutral-500 text-black font-semibold py-3 px-4 rounded-xl transition-all duration-200 mt-2 text-sm flex items-center justify-center gap-2 shadow-lg shadow-white/5 border border-white/10"
           >
             {loding ? (
               <div className="flex items-center gap-2">
-                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                 <span>Initializing Agent...</span>
               </div>
             ) : (
@@ -145,7 +147,7 @@ function signup() {
         <div className="mt-6 text-center border-t border-white/[0.04] pt-5">
           <p className="text-xs text-neutral-500 font-medium">
             Already have an account?{" "}
-            <a href="/login" className="text-orange-500 hover:text-orange-400 font-semibold transition-colors duration-200 underline underline-offset-4 decoration-orange-500/30">
+            <a href="/login" className="text-white hover:text-neutral-300 font-semibold transition-colors duration-200 underline underline-offset-4 decoration-white/30">
               Log in instead
             </a>
           </p>
